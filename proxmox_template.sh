@@ -11,25 +11,27 @@
 # Email         : wrassis84@gmail.com
 ###############################################################################
 
-### Variables/Functions definitions:
+
+### VARIABLES/FUNCTIONS DEFINITIONS
+
 url="https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
 image="jammy-server-cloudimg-amd65.img"
 template_id="9100"
 vm_id="9100"
 memory_size="1024"
 vm_name="tmp-ubuntu-jammy-9100"
-networ_config="virtio,bridge=vmbr0"
+network_config="virtio,bridge=vmbr0"
 
+### VARIABLES/FUNCTIONS DEFINITIONS
 
+### SCRIPT BEGIN ###
 
-### BEGIN
-###
 echo "Checking necessary files..."
 apt update -y && sudo apt install libguestfs-tools -y
 virt-customize -a $image --install qemu-guest-agent --truncate /etc/machine-id
 
 echo "Creating Proxmox machine using ubuntu cloud-image..."
-qm create $vm_id --memory $memory_size --name $vm_name --net $networ_config
+qm create $vm_id --memory $memory_size --name $vm_name --net $network_config
 qm importdisk $vm_id $image local
 qm set $vm_id --scsihw virtio-scsi-pci --scsi0 local:$vm_id/vm-$vm_id-disk-0.raw
 qm set $vm_id --ide2 local:cloudinit
@@ -41,5 +43,4 @@ qm set $vm_id --agent enabled=1
 qm set $vm_id --machine q35
 qm template $vm_id
 
-###
-### END
+### SCRIPT END ###
