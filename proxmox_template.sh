@@ -1,7 +1,17 @@
-# This file: proxmox_template.sh
-# This script must be executed on Proxmox host and image used must be in the same directory
+#!/bin/bash 
 
-# Variables/Functions definitions:
+###############################################################################
+# Script Name   : proxmox_template.sh
+# Description   : This script builds a Proxmox VM template for deploying
+#               : Proxmox machines using Terraform.
+#               : This script must be executed on Proxmox host and ubuntu image
+#               : must be in the same directory.
+# Args          : 
+# Author        : William Ramos de Assis Rezende
+# Email         : wrassis84@gmail.com
+###############################################################################
+
+### Variables/Functions definitions:
 url="https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img"
 image="jammy-server-cloudimg-amd65.img"
 template_id="9100"
@@ -11,6 +21,9 @@ vm_name="tmp-ubuntu-jammy-9100"
 networ_config="virtio,bridge=vmbr0"
 
 
+
+### BEGIN
+###
 echo "Checking necessary files..."
 apt update -y && sudo apt install libguestfs-tools -y
 virt-customize -a $image --install qemu-guest-agent --truncate /etc/machine-id
@@ -27,3 +40,6 @@ qm set $vm_id --agent enabled=1
 #qm set $vm_id --ciuser sysadmin
 qm set $vm_id --machine q35
 qm template $vm_id
+
+###
+### END
