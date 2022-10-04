@@ -1,5 +1,5 @@
 ## To ignore this file itself:
-#.gitignore
+.gitignore
 
 ## Local .terraform directories:
 **/.terraform/*
@@ -35,3 +35,6 @@ override.tf.json
 
 *plan*
 *.lock.hcl
+
+# Ignore environment variable file:
+.env
