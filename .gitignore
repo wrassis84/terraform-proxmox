@@ -41,3 +41,4 @@ override.tf.json
 
 # Ignore log files:
 *.log
+servers.txt
