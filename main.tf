@@ -35,7 +35,7 @@ resource "proxmox_vm_qemu" "virtual_machines" {
   bootdisk = "virtio0"
   scsihw   = "virtio-scsi-pci"
 
-  onboot  = false
+  onboot  = true
   agent   = 1
   cpu     = "kvm64"
   numa    = true
@@ -67,9 +67,9 @@ resource "proxmox_vm_qemu" "virtual_machines" {
 
   os_type = "cloud-init"
 
-###########################################################################
+  ###########################################################################
 
-/*   provisioner "remote-exec" {
+  /*   provisioner "remote-exec" {
     inline = ["sudo echo '${self.name} ${self.default_ipv4_address}' >> /etc/hosts"]
     #inline = ["sudo apt update", "sudo apt install python3 -y", "echo Done!"]
     #inline = ["echo Done!"]
@@ -88,8 +88,8 @@ resource "proxmox_vm_qemu" "virtual_machines" {
     #-i '${self.default_ipv4_address},'
     #on_failure = continue
   } */
-  
-###########################################################################
+
+  ###########################################################################
 
   provisioner "local-exec" {
     command    = "echo '${self.name} ${self.default_ipv4_address}' >> servers.txt"
