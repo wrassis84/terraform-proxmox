@@ -54,7 +54,7 @@ resource "proxmox_vm_qemu" "virtual_machines" {
     type    = "scsi"
     storage = "local"
     ssd     = 1
-    size    = "10G"
+    size    = "25G"
   }
 
   disk {
