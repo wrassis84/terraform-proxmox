@@ -28,8 +28,8 @@ resource "proxmox_vm_qemu" "virtual_machines" {
   vcpus   = 2
   memory  = 2048
   # "balloon" defines the minimum memory for VM. More info:
-  # http://kashyapc.wordpress.com/2011/10/15/virtio-balloon-in-action-with-native-linux-kvm-tool/
-  # https://rwmj.wordpress.com/2010/07/17/virtio-balloon/
+  # https://tinyurl.com/kashyapc
+  # https://tinyurl.com/virtio-balloon
   balloon  = 2048
   boot     = "c"
   bootdisk = "virtio0"
@@ -46,7 +46,6 @@ resource "proxmox_vm_qemu" "virtual_machines" {
     model  = "virtio"
   }
 
-  /* ipconfig0 = "ip=${var.ips[count.index]}/24,gw=${cidrhost(format("%s/24", var.ips[count.index]), 1)}" */
   ipconfig0 = "ip=${var.ip_address[count.index]}/24,gw=192.168.0.1"
 
   disk {
@@ -72,26 +71,4 @@ resource "proxmox_vm_qemu" "virtual_machines" {
     when       = create
     command    = "echo '${self.name} ${self.default_ipv4_address}' >> servers.txt"
   }
-
-  # Execute on Destroy time!
-  provisioner "local-exec" {
-    on_failure = continue
-    when       = destroy
-    command    = <<-EOT
-    ssh-keygen -f '/home/william/.ssh/known_hosts' -R '${self.default_ipv4_address}' > /dev/null 2>&1 &&
-    echo '' > servers.txt
-    EOT
-  }
-
-  /*provisioner "local-exec" {
-    command    = "sudo /bin/bash add_hosts.sh"
-    #on_failure = continue
-  }*/
-
-  # Copies the myapp.conf file to /etc/myapp.conf
-  /* provisioner "file" {
-    source      = "instances.txt"
-    destination = "/etc/hosts"
-  } */
-
 }
