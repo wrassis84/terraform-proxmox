@@ -71,4 +71,11 @@ resource "proxmox_vm_qemu" "virtual_machines" {
     when       = create
     command    = "echo '${self.name} ${self.default_ipv4_address}' >> servers.txt"
   }
+
+  provisioner "local-exec" {
+    on_failure = continue
+    when       = destroy
+    command    = "echo '' > servers.txt"
+  }
+
 }
