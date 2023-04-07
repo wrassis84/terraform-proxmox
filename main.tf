@@ -67,41 +67,18 @@ resource "proxmox_vm_qemu" "virtual_machines" {
 
   os_type = "cloud-init"
 
-  ###########################################################################
-
-  /*   provisioner "remote-exec" {
-    inline = ["sudo echo '${self.name} ${self.default_ipv4_address}' >> /etc/hosts"]
-    #inline = ["sudo apt update", "sudo apt install python3 -y", "echo Done!"]
-    #inline = ["echo Done!"]
-
-    connection {
-      host        = self.default_ipv4_address
-      type        = "ssh"
-      user        = var.user
-      private_key = file(var.ssh_keys["priv"])
-    }
-  } */
-
-  /*   provisioner "local-exec" {
-    working_dir = "../ansible"
-    command     = "ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook -u sysadmin main.yml --become"
-    #-i '${self.default_ipv4_address},'
-    #on_failure = continue
-  } */
-
-  ###########################################################################
-
   provisioner "local-exec" {
-    command    = "echo '${self.name} ${self.default_ipv4_address}' >> servers.txt"
     on_failure = continue
+    when       = create
+    command    = "echo '${self.name} ${self.default_ipv4_address}' >> servers.txt"
   }
 
   # Execute on Destroy time!
   provisioner "local-exec" {
-    #on_failure = continue
-    when    = destroy
-    command = <<-EOT
-    ssh-keygen -f '/home/william/.ssh/known_hosts' -R '${self.default_ipv4_address}' > /dev/null 2>&1
+    on_failure = continue
+    when       = destroy
+    command    = <<-EOT
+    ssh-keygen -f '/home/william/.ssh/known_hosts' -R '${self.default_ipv4_address}' > /dev/null 2>&1 &&
     echo '' > servers.txt
     EOT
   }

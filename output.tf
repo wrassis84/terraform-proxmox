@@ -9,6 +9,6 @@ output "name" {
   value = formatlist("%s.%s", proxmox_vm_qemu.virtual_machines.*.name, var.domain_name)
 }
 
-output "env" {
+output "environment" {
   value = var.environment
 }

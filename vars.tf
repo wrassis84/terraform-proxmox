@@ -21,7 +21,7 @@ variable "template" {
 variable "hostnames" {
   description = "VMs to be created"
   type        = list(string)
-  default     = ["manager001", "worker001", "worker002"]
+  default     = ["tf-node000", "tf-node001", "tf-node002"]
 }
 
 variable "rootfs_size" {
