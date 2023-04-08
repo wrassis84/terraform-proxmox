@@ -16,8 +16,8 @@ provider "proxmox" {
 
 resource "proxmox_vm_qemu" "virtual_machines" {
 
-  count       = length(var.hostnames)
-  name        = var.hostnames[count.index]
+  count       = length(var.hostname)
+  name        = var.hostname[count.index]
   target_node = var.proxmox_host["target_node"]
   vmid        = var.vmid + count.index
   full_clone  = true
@@ -69,13 +69,32 @@ resource "proxmox_vm_qemu" "virtual_machines" {
   provisioner "local-exec" {
     on_failure = continue
     when       = create
-    command    = "echo '${self.name} ${self.default_ipv4_address}' >> servers.txt"
+    command    = "echo '${self.name} ${self.default_ipv4_address}' >> hosts.txt"
+  }
+
+  provisioner "local-exec" {
+  # remote-exec example-> ginigangadharan/terraform-iac-usecases: l1nq.com/nYz5T
+  # TF_VAR doc -> l1nq.com/VgUte
+  # Use Input Variables -> l1nq.com/0H2LZ
+  # multiple commands in local-exec provisioner -> l1nk.dev/R37Sr
+    on_failure = continue
+    when       = create
+    command    = <<EOT
+      echo [docker_swarm_manager] > $TF_VAR_inventory;
+      echo ${var.hostname[0]} ansible_host=${var.ip_address[0]} >> $TF_VAR_inventory;
+      echo '' >> $TF_VAR_inventory;
+      echo [docker_swarm_worker] >> $TF_VAR_inventory;
+      echo ${var.hostname[1]} ansible_host=${var.ip_address[1]} >> $TF_VAR_inventory;
+      echo ${var.hostname[2]} ansible_host=${var.ip_address[2]} >> $TF_VAR_inventory;
+      echo '' >> $TF_VAR_inventory;
+      echo [all:vars] >> $TF_VAR_inventory;
+      echo ansible_python_interpreter=/usr/bin/python3 >> $TF_VAR_inventory
+    EOT
   }
 
   provisioner "local-exec" {
     on_failure = continue
     when       = destroy
-    command    = "echo '' > servers.txt"
+    command    = "echo '' > hosts.txt"
   }
-
 }

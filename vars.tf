@@ -18,7 +18,7 @@ variable "template" {
   default     = "tmp-ubuntu-jammy-9000"
 }
 
-variable "hostnames" {
+variable "hostname" {
   description = "VMs to be created"
   type        = list(string)
   default     = ["tf-node000", "tf-node001", "tf-node002"]
