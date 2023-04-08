@@ -85,4 +85,10 @@ resource "proxmox_vm_qemu" "virtual_machines" {
       echo ansible_python_interpreter=/usr/bin/python3 >> $TF_VAR_inventory
     EOT
   }
+  
+  provisioner "local-exec" {
+    on_failure = continue
+    when       = destroy
+    command    = "echo '' > $TF_VAR_inventory"
+  }
 }
