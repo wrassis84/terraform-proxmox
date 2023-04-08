@@ -67,12 +67,6 @@ resource "proxmox_vm_qemu" "virtual_machines" {
   os_type = "cloud-init"
 
   provisioner "local-exec" {
-    on_failure = continue
-    when       = create
-    command    = "echo '${self.name} ${self.default_ipv4_address}' >> hosts.txt"
-  }
-
-  provisioner "local-exec" {
   # remote-exec example-> ginigangadharan/terraform-iac-usecases: l1nq.com/nYz5T
   # TF_VAR doc -> l1nq.com/VgUte
   # Use Input Variables -> l1nq.com/0H2LZ
@@ -90,11 +84,5 @@ resource "proxmox_vm_qemu" "virtual_machines" {
       echo [all:vars] >> $TF_VAR_inventory;
       echo ansible_python_interpreter=/usr/bin/python3 >> $TF_VAR_inventory
     EOT
-  }
-
-  provisioner "local-exec" {
-    on_failure = continue
-    when       = destroy
-    command    = "echo '' > hosts.txt"
   }
 }
