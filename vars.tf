@@ -50,7 +50,7 @@ variable "user" {
 
 variable "environment" {
   description = "Environment of the System"
-  default     = "staging"
+  default     = "Testing" # Staging or Production
 }
 
 variable "domain_name" {

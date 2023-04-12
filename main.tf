@@ -71,6 +71,7 @@ resource "proxmox_vm_qemu" "virtual_machines" {
   # TF_VAR doc -> l1nq.com/VgUte
   # Use Input Variables -> l1nq.com/0H2LZ
   # multiple commands in local-exec provisioner -> l1nk.dev/R37Sr
+  # This build the inventory file in inventory.yaml.
     on_failure = continue
     when       = create
     command    = <<EOT
@@ -87,6 +88,7 @@ resource "proxmox_vm_qemu" "virtual_machines" {
   }
   
   provisioner "local-exec" {
+    # Clean the inventory file at each destroy time.
     on_failure = continue
     when       = destroy
     command    = "echo '' > $TF_VAR_inventory"
