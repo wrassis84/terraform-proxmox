@@ -18,10 +18,17 @@ variable "template" {
   default     = "tmp-ubuntu-jammy-9000"
 }
 
+variable "memory" {
+  description = "Amount of memory to each node"
+  type        = list(string)
+  default     = ["3072", "4096"]
+}
+
 variable "hostname" {
   description = "VMs to be created"
   type        = list(string)
-  default     = ["tf-node000", "tf-node001", "tf-node002"]
+  # default     = ["tf-node000", "tf-node001", "tf-node002"]
+  default     = ["tf-node000", "tf-node001"]
 }
 
 variable "rootfs_size" {
@@ -31,7 +38,8 @@ variable "rootfs_size" {
 variable "ip_address" {
   description = "IPs of the VMs, respective to the hostname order"
   type        = list(string)
-  default     = ["192.168.0.230", "192.168.0.231", "192.168.0.232"]
+  # default     = ["192.168.0.230", "192.168.0.231", "192.168.0.232"]
+  default     = ["192.168.0.230", "192.168.0.231"]
 }
 
 variable "ssh_keys" {

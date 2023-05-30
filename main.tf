@@ -26,11 +26,11 @@ resource "proxmox_vm_qemu" "virtual_machines" {
   cores   = 2
   sockets = 1
   vcpus   = 2
-  memory  = 2048
+  memory  = var.memory[count.index]
   # "balloon" defines the minimum memory for VM. More info:
   # https://tinyurl.com/kashyapc
   # https://tinyurl.com/virtio-balloon
-  balloon  = 2048
+  balloon  = 1024
   boot     = "c"
   bootdisk = "virtio0"
   scsihw   = "virtio-scsi-pci"
@@ -80,7 +80,6 @@ resource "proxmox_vm_qemu" "virtual_machines" {
       echo '' >> $TF_VAR_inventory;
       echo [docker_swarm_worker] >> $TF_VAR_inventory;
       echo ${var.hostname[1]} ansible_host=${var.ip_address[1]} >> $TF_VAR_inventory;
-      echo ${var.hostname[2]} ansible_host=${var.ip_address[2]} >> $TF_VAR_inventory;
       echo '' >> $TF_VAR_inventory;
       echo [all:vars] >> $TF_VAR_inventory;
       echo ansible_python_interpreter=/usr/bin/python3 >> $TF_VAR_inventory
