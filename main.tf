@@ -26,7 +26,8 @@ resource "proxmox_vm_qemu" "virtual_machines" {
   cores   = 2
   sockets = 1
   vcpus   = 2
-  memory  = var.memory[count.index]
+  # memory  = var.memory[count.index]
+  memory = var.memory
   # "balloon" defines the minimum memory for VM. More info:
   # https://tinyurl.com/kashyapc
   # https://tinyurl.com/virtio-balloon
