@@ -5,7 +5,6 @@ no virtualizador [**`Proxmox`**](https://www.proxmox.com/en/) utilizando a ferra
 Trata-se de um projeto de *homelab* que desenvolvi para praticar o uso de ferramentas *DevOps* como o [**`Terraform`**](https://www.terraform.io/), [**`Proxmox`**](https://www.proxmox.com/en/) e [**`Ansible`**](https://www.ansible.com/).
 
 ### Tópicos:
-- [terraform-proxmox](#terraform-proxmox)
     - [Tópicos:](#tópicos)
     - [Instalação do `Proxmox`:](#instalação-do-proxmox)
     - [Criação do template da máquina virtual:](#criação-do-template-da-máquina-virtual)
