@@ -7,12 +7,12 @@ Trata-se de um projeto de *homelab* que desenvolvi para praticar o uso de ferram
 ### Tópicos:
 - [terraform-proxmox](#terraform-proxmox)
     - [Tópicos:](#tópicos)
-    - [Instalação do `**Proxmox**`:](#instalação-do-proxmox)
+    - [Instalação do **`Proxmox`**:](#instalação-do-proxmox)
     - [Criação do template da máquina virtual:](#criação-do-template-da-máquina-virtual)
-    - [Instalação e configuração do `**Terraform**`:](#instalação-e-configuração-do-terraform)
-    - [Instalação e configuração do `**git**`:](#instalação-e-configuração-do-git)
+    - [Instalação e configuração do **`Terraform`**:](#instalação-e-configuração-do-terraform)
+    - [Instalação e configuração do **`git`**:](#instalação-e-configuração-do-git)
 
-### Instalação do `**Proxmox**`:
+### Instalação do **`Proxmox`**:
 
 Primeiramente, será necessário instalar o `Proxmox` no seu hardware. Eu utilizei um *laptop* com 8 GB de RAM, processador CORE I7 (5ª geração) e disco SSD Sata com 500GB de espaço. O `Proxmox` não é muito exigente em termos de hardware, mas tenha em mente que a capacidade do hardware utilizado vai influenciar no desempenho do próprio virtualizador e na quantidade de máquinas virtuais que ele poderá executar.
 
@@ -106,8 +106,8 @@ Por fim, transforme esta máquina em um template:
 `qm template 9000`
 > Este é o último passo para utilizar o template no `Terraform` para provisionar máquinas virtuais no `Proxmox`.
 
-### Instalação e configuração do `**Terraform**`:
+### Instalação e configuração do **`Terraform`**:
 Para a instalação e configuração do **`Terraform`** podemos acessar a [página de documentação](https://developer.hashicorp.com/terraform/downloads).
 
-### Instalação e configuração do `**git**`:
+### Instalação e configuração do **`git`**:
 Para a instalação e configuração do **`git`** podemos acesar a [página de instalação](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
