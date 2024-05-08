@@ -110,4 +110,18 @@ Por fim, transforme esta máquina em um template:
 Para a instalação e configuração do **`Terraform`** podemos acessar a [página de documentação](https://developer.hashicorp.com/terraform/downloads).
 
 ### Instalação e configuração do **`git`**:
-Para a instalação e configuração do **`git`** podemos acesar a [página de instalação](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+Para a instalação do **`git`** podemos acesar a [página de instalação](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git). Para a configuração, podemos seguir os seguintes passos:
+1 - Configurar o nome que será vinculado aos *commits*:
+```
+git config --global user.name William
+```
+> NOTA: "--global" define esta configuração no contexto de todos os repositórios e sua omissão define esta configuração somente para o repositório atual.
+2 - Configurar o *e-mail* que estará vinculado aos *commits*:
+```
+git config --global user.email meuemail@gmail.com
+```
+3 - Configurar o editor de texto padrão para as mensagens de *commit*:
+> NOTA: Utilize **vim** para o VIM, **'code --wait'** para o **VSCode** e **'codium --wait'** para o VSCodium.
+```
+git config --global core.editor 'codium --wait'
+```
